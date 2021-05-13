@@ -20,6 +20,9 @@ Sing up demo sung .net 5
 4) Run project
 	4.1) set a start up project as DemoApp.WebUI and run the project 
 
+5) CRUD opration 
+	5.1) we added CRUD operation
+
 
 #Note - 
 We used Json data fro country and city inside   DemoApp.Dal-Data folder
