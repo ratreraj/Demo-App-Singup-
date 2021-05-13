@@ -24,9 +24,104 @@ namespace DemoApp.WebUI.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+
+            IEnumerable<Users> data = (from us in _db.Users.ToList()
+                                       join
+         cty in GetCountriesToJson().countries on
+         us.Country equals cty.CountryId.ToString()
+                                       join ct in GetCityJson().cities
+                                       on us.City equals ct.CityId
+                                       select new Users()
+                                       {
+                                           UserId = us.UserId,
+                                           Name = us.Name,
+                                           UserName = us.UserName,
+                                           Contcat = us.Contcat,
+                                           City = ct.CityName,
+                                           Country = cty.CountryName,
+                                           Gender = us.Gender
+                                       }).ToList();
+
+
+            return View(data);
         }
 
+        public IActionResult Delete(int UserId)
+        {
+            Users user = _db.Users.Find(UserId);
+            if (user != null)
+            {
+                _db.Remove(user);
+                _db.SaveChanges();
+                Notify("Data Delete successfully");
+            }
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Edit(int UserId)
+        {
+            Onload();
+            UserModel UserModelData = new UserModel();
+            Users data = _db.Users.Find(UserId);
+            if (data != null)
+            {
+                UserModelData = new()
+                {
+                    UserId = data.UserId,
+                    Name = data.Name,
+                    UserName = data.UserName,
+                    Password = data.Password,
+                    ConfirmPassword = data.Password,
+                    Contcat = data.Contcat,
+                    Country = data.Country,
+                    City = data.City,
+                    Gender = data.Gender,
+                    Terms = data.Terms
+                };
+                ViewBag.City = data.City;
+            }
+
+
+            return View("SingUp", UserModelData);
+        }
+        [HttpPost]
+        public IActionResult Edit(UserModel model)
+        {
+            try
+            {
+                Users data = new()
+                {
+                    UserId = model.UserId,
+                    Name = model.Name,
+                    UserName = model.UserName,
+                    Password = model.Password,
+                    Contcat = model.Contcat,
+                    Country = model.Country,
+                    City = model.City,
+                    Gender = model.Gender,
+                    Terms = model.Terms
+                };
+
+                if (ModelState.IsValid)
+                {
+                    _db.Users.Update(data);
+                    _db.SaveChanges();
+
+
+                    Notify("Data updated successfully");
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            return RedirectToAction("SingUp", "Account");
+
+        }
 
         public IActionResult SingUp()
         {
@@ -37,6 +132,7 @@ namespace DemoApp.WebUI.Controllers
         [HttpPost]
         public IActionResult SingUp(UserModel model)
         {
+            ModelState.Remove("UserId");
             if (ModelState.IsValid)
             {
                 Users Users = new()
@@ -62,6 +158,8 @@ namespace DemoApp.WebUI.Controllers
             //return View();
             return RedirectToAction("SingUp", "Account");
         }
+
+
 
         private Countries GetCountry(string id)
         {
@@ -139,6 +237,9 @@ namespace DemoApp.WebUI.Controllers
         {
             ViewBag.Country = new SelectList(GetCountriesToJson().countries, "CountryId", "CountryName");
             ViewBag.Genders = new List<string>() { "Male", "Female" };
+            ViewBag.City = null;
+
+
 
         }
         [HttpPost]

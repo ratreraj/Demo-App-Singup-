@@ -10,6 +10,8 @@ namespace DemoApp.WebUI.Models
 {
     public class UserModel
     {
+        [Required]
+        public int UserId { get; set; }
 
         [MaxLength(100), Display(Name = "Name"), Required(ErrorMessage = "Please enter name")]
         public string Name { get; set; }

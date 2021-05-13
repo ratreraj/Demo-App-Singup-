@@ -31,6 +31,8 @@ namespace DemoApp.WebUI.Controllers
                 provider = GetProvider()
             };
 
+           
+
             TempData["Message"] = JsonSerializer.Serialize(msg);
         }
 

@@ -1,7 +1,7 @@
 ﻿@model DemoApp.WebUI.Models.UserModel
 
 @{
-    ViewData["Title"] = "SingUp";
+    ViewData["Title"] = Model != null ? "Edit" : "SingUp";
 }
 
 <div class="row">
@@ -11,15 +11,20 @@
         <div class="col-lg-12 text-center text-lg-start py-4">
             <h1 class="display-4 fw-bold lh-1 mb-3">Demo sign-up form</h1>
             <p class="col-lg-10 fs-4">Below is an example form built with .Net 5 and Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
-        </div>
 
+        </div>
+        <a asp-area="" asp-action="Index" asp-controller="Account" class="btn btn-outline-dark btn-sm">List of all user</a>
     </div>
     <div class="col-md-6">
 
         <div class="card">
-            <h5 class="card-header">Create an account</h5>
+            <h5 class="card-header">@(Model!=null?"Update an account":"Create an account")</h5>
             <div class="card-body">
-                <form asp-action="SingUp" class="row g-3">
+                <form asp-action="@ViewData["Title"]" class="row g-3">
+                    @if (Model != null)
+                    {
+                        <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+                    }
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="col-md-12">
@@ -34,12 +39,32 @@
                     </div>
                     <div class="col-md-6">
                         <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" type="password" class="form-control" />
+                        @{
+                            if (Model != null)
+                            {
+                                <input asp-for="Password" type="text" class="form-control" />
+                            }
+                            else
+                            {
+                                <input asp-for="Password" type="password" class="form-control" />
+                            }
+
+                        }
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <label asp-for="ConfirmPassword" class="control-label"></label>
-                        <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                        @{
+                            if (Model != null)
+                            {
+                                <input asp-for="ConfirmPassword" type="text" class="form-control" />
+                            }
+                            else
+                            {
+                                <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                            }
+
+                        }
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
                     <div class="col-md-12">
@@ -80,7 +105,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <input type="submit" value="Create an account" class="btn btn-primary" />
+                            <input type="submit" value="@(Model!=null?"Update an account":"Create an account")" class="@(Model!=null?"btn btn-warning":"btn btn-primary")" />
                         </div>
                     </div>
                 </form>
@@ -108,7 +133,26 @@
             var items = "<option value=''>Please Select City</option>";
             $('#City').html(items);
             $('#Country').change(function () {
-                var url = '@Url.Content("~/")' + "Account/GetCityList";
+                BindCity();
+            });
+
+            var UserId = $('#UserId').val();
+            if (UserId != null)
+            {
+                console.log(UserId);
+                BindCity();
+
+                //console.log($('#City').find('option').length);
+                //if ($('#City').find('option').length > 1) {
+                //    $('#City').val(3);
+                //    console.log($(ddlCity).val(3));
+                //}
+            }
+
+        });
+
+        function BindCity() {
+            var url = '@Url.Content("~/")' + "Account/GetCityList";
                 var ddlsource = "#Country";
                 $.post(url, { CountryId: $(ddlsource).val() }, function (data) {
                     var items = '';
@@ -118,8 +162,15 @@
                      items += "<option value='" + City.value + "'>" + City.text + "</option>";
                     });
                     $('#City').html(items);
+
+                    //
+                    var _cityval = @(ViewBag.City!=null? Html.Raw(ViewBag.City) : Html.Raw("undefined"));
+                    if (_cityval != null) {
+                        $('#City').val(_cityval);
+                    }
+
                 });
-            });
-        });
+
+        }
     </script>
 }
