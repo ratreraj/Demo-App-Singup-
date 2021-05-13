@@ -21,7 +21,7 @@ namespace DemoApp.WebUI.Models
         [MaxLength(25), RegularExpression("^(?=.{8,16}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$", ErrorMessage = "Minimun length of 8 & at least one digit, lower case and one uppper case"), Display(Name = "Confirm Password"), Required(ErrorMessage = "Please enter confirm password"), Compare("Password", ErrorMessage = "Password and confirm password must be same")]
         public string ConfirmPassword { get; set; }
 
-        [MaxLength(10), Display(Name = "Contcat"), RegularExpression("^[6-9]\\d{9}$", ErrorMessage = "enter valid mobile number")]
+        [MaxLength(10), Display(Name = "Contact"), RegularExpression("^[6-9]\\d{9}$", ErrorMessage = "enter valid mobile number")]
         public string Contcat { get; set; }
 
         [Required(ErrorMessage = "Please select country"), Display(Name = "Country")]
