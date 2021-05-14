@@ -22,6 +22,9 @@ Sing up demo sung .net 5
 
 5) CRUD opration 
 	5.1) we added CRUD operation
+	
+6) Screenshot of working application is added 
+	6.1 ) Path - DemoApp.WebUI\Screen 
 
 
 #Note - 
