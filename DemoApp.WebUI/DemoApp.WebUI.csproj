@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DemoApp.DAL\DemoApp.DAL.csproj" />
+    <ProjectReference Include="..\DemoApp.DomainModels\DemoApp.DomainModels.csproj" />
+    <ProjectReference Include="..\DemoApp.Repositry\DemoApp.Repository.csproj" />
   </ItemGroup>
 
 </Project>

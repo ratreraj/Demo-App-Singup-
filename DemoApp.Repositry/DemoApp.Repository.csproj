@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DemoApp.DAL\DemoApp.DAL.csproj" />
+    <ProjectReference Include="..\DemoApp.DomainModels\DemoApp.DomainModels.csproj" />
+  </ItemGroup>
+
+</Project>

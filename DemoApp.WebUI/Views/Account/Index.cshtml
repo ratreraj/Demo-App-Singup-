@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DemoApp.DAL.Users>
+﻿@model IEnumerable<DemoApp.DomainModels.UserModel>
 
 <p>
     <a asp-action="SingUp">Create New</a>
@@ -33,34 +33,34 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contcat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Country)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gender)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contcat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
 
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { item.UserId }) |
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { item.UserId }) |
 
-                    @Html.ActionLink("Delete", "Delete", new { item.UserId }, new { onclick = "return confirm('Are you sure to delete?')" })
-                </td>
-            </tr>
+                @Html.ActionLink("Delete", "Delete", new { item.UserId }, new { onclick = "return confirm('Are you sure to delete?')" })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

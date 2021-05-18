@@ -1,5 +1,7 @@
 ﻿using ASPDotNetDemoFun.Data;
 using DemoApp.DAL;
+using DemoApp.DomainModels;
+using DemoApp.Repository;
 using DemoApp.WebUI.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,54 +17,38 @@ namespace DemoApp.WebUI.Controllers
     public class AccountController : BaseController
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly AppDbContext _db;
-
-        public AccountController(AppDbContext db, IWebHostEnvironment hostingEnvironment)
+        //private readonly AppDbContext _db;
+        private readonly IUnitOfWork _uow;
+        public AccountController(IUnitOfWork uow, IWebHostEnvironment hostingEnvironment)
         {
-            _db = db;
+            _uow = uow;
             _hostingEnvironment = hostingEnvironment;
         }
         public IActionResult Index()
         {
 
-            IEnumerable<Users> data = (from us in _db.Users.ToList()
-                                       join
-         cty in GetCountriesToJson().countries on
-         us.Country equals cty.CountryId.ToString()
-                                       join ct in GetCityJson().cities
-                                       on us.City equals ct.CityId
-                                       select new Users()
-                                       {
-                                           UserId = us.UserId,
-                                           Name = us.Name,
-                                           UserName = us.UserName,
-                                           Contcat = us.Contcat,
-                                           City = ct.CityName,
-                                           Country = cty.CountryName,
-                                           Gender = us.Gender
-                                       }).ToList();
-
-
+            IEnumerable<UserModel> data = _uow.UsersRespo.GetAllUser();
             return View(data);
         }
 
         public IActionResult Delete(int UserId)
         {
-            Users user = _db.Users.Find(UserId);
-            if (user != null)
-            {
-                _db.Remove(user);
-                _db.SaveChanges();
-                Notify("Data Delete successfully");
-            }
-
+            _uow.UsersRespo.DeleteById(UserId);
+            _uow.SaveChanges();
+            //if (user != null)
+            //{
+            //    _uow.UsersRespo.re(user);
+            //    _db.SaveChanges();
+                
+            //}
+            Notify("Data Delete successfully");
             return RedirectToAction("Index");
         }
         public IActionResult Edit(int UserId)
         {
             Onload();
             UserModel UserModelData = new UserModel();
-            Users data = _db.Users.Find(UserId);
+            Users data = _uow.UsersRespo.FindById(UserId);
             if (data != null)
             {
                 UserModelData = new()
@@ -104,8 +90,8 @@ namespace DemoApp.WebUI.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _db.Users.Update(data);
-                    _db.SaveChanges();
+                    _uow.UsersRespo.Update(data);
+                    _uow.SaveChanges();
 
 
                     Notify("Data updated successfully");
@@ -148,8 +134,8 @@ namespace DemoApp.WebUI.Controllers
 
                 };
 
-                _db.Users.Add(Users);
-                _db.SaveChanges();
+                _uow.UsersRespo.Add(Users);
+                _uow.SaveChanges();
 
                 Notify("Data saved successfully");
 

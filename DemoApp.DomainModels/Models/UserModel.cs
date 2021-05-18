@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DemoApp.WebUI.Attributes;
 
-namespace DemoApp.WebUI.Models
+
+namespace DemoApp.DomainModels
 {
     public class UserModel
     {

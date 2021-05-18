@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
-namespace DemoApp.WebUI.Attributes
+namespace DemoApp.DomainModels
 {
     public class CustomValidations : ValidationAttribute, IClientModelValidator
     {
