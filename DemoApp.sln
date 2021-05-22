@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.WebUI", "DemoApp.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.DAL", "DemoApp.DAL\DemoApp.DAL.csproj", "{BF65D103-C5E9-4124-B08F-C2D4C82FF232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.Repository", "DemoApp.Repositry\DemoApp.Repository.csproj", "{FB877AC3-95B1-4DC7-A9E8-F81D8A863962}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.Repository", "DemoApp.Repositry\DemoApp.Repository.csproj", "{FB877AC3-95B1-4DC7-A9E8-F81D8A863962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.DomainModels", "DemoApp.DomainModels\DemoApp.DomainModels.csproj", "{D583FD8D-ADD8-45CC-87A4-F03326B7A0EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.DomainModels", "DemoApp.DomainModels\DemoApp.DomainModels.csproj", "{D583FD8D-ADD8-45CC-87A4-F03326B7A0EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp.WebAPI", "DemoApp.WebAPI\DemoApp.WebAPI.csproj", "{52B1322F-0B94-4342-B1B6-C89F0A0101B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D583FD8D-ADD8-45CC-87A4-F03326B7A0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D583FD8D-ADD8-45CC-87A4-F03326B7A0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D583FD8D-ADD8-45CC-87A4-F03326B7A0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B1322F-0B94-4342-B1B6-C89F0A0101B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B1322F-0B94-4342-B1B6-C89F0A0101B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B1322F-0B94-4342-B1B6-C89F0A0101B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B1322F-0B94-4342-B1B6-C89F0A0101B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,7 +29,7 @@ namespace DemoApp.Repository.Implementations
             var data = (from us in Context.Users
                         join
                         cty in Context.Countries on
-                        us.Country equals cty.CountryId.ToString()
+                        us.Country equals cty.CountryId
                         join ct in Context.Cities
                         on us.City equals ct.CityId
                         select new UserModel()
